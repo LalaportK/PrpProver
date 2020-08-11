@@ -105,7 +105,10 @@ export class Tokenizer {
         if (char.length > 1) return false;
         let charCode = char.charCodeAt(0);
 
-        return (charCode >= 0x21 && charCode <= 0x7E)   // Characters and symbols
+        return (charCode === 0x5F) ||   // _
+            (charCode === 0x5E) ||  // ^
+            (charCode >= 0x30 && charCode <= 0x39) ||  //0-9
+            this.isLiteralStart(char);   // a-z, A-Z
     }
 
     private skipWhiteSpace(): void {
